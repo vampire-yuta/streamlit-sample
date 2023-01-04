@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  streamlit:
+    build:
+      context: ./streamlit
+      dockerfile: ./Dockerfile
+    networks:
+      shared-nw:
+    # volumes:
+    #   - ./streamlit:/streamlit
+    ports:
+      - 8501:8501
+    command: streamlit run /streamlit/app.py --browser.serverAddress="0.0.0.0" --server.port="8501"
+  # nginx:
+  #   build: ./nginx
+  #   networks:
+  #     shared-nw:
+  #   ports:
+  #     - 443:443
+networks:
+  shared-nw:
+    driver: bridge
