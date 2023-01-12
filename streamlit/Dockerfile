@@ -1,12 +1,14 @@
 FROM python:3.10
 
-RUN pip install streamlit
+RUN pip install streamlit pyodbc
 
 # EXPOSE 8501
 
 # WORKDIR /app
 # WORKDIR /streamlit
 COPY ./app.py /streamlit/
+COPY ./mssql.py /streamlit/
+COPY ./requirements.txt /
 
 # RUN apt-get update && apt-get install -y \
 #     build-essential \
@@ -16,6 +18,6 @@ COPY ./app.py /streamlit/
 
 # RUN git clone https://github.com/streamlit/streamlit-example.git .
 
-# RUN pip3 install -r requirements.txt
+RUN pip3 install -r /requirements.txt
 
 # ENTRYPOINT ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]

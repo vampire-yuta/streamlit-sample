@@ -1,4 +1,5 @@
 import streamlit as st
+import mssql
 
 # ページのタイトル設定
 st.set_page_config(
@@ -19,8 +20,10 @@ hide_menu_style = """
         """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
+
 # 最初のページ
 def main():
+    mssql.show_names()
     st.markdown(
         "<h1 style='text-align: center;'>💕💕Wedding Quiz💕💕</h1>",
         unsafe_allow_html=True,
@@ -33,6 +36,7 @@ def main():
     with st.form("f0"):
         st.radio("テーブル番号を選んでね", ["A", "B", "C", "D", "E", "F", "G"], key="answer0")
         st.form_submit_button("スタート！", on_click=change_page)
+
 
 
 # 問題１
@@ -139,7 +143,7 @@ def page_end():
                 f"<div style='text-align: center;'>第{num}問：{value}</div>",
                 unsafe_allow_html=True,
             )
-    ## バルーンを飛ばす
+    # バルーンを飛ばす
     st.balloons()
 
 
