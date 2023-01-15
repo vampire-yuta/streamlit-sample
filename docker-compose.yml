@@ -12,22 +12,29 @@ services:
       - 8501:8501
     command: streamlit run /streamlit/app.py --browser.serverAddress="0.0.0.0" --server.port="8501"
   mssql:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    build:
+      context: ./mssqlserver/
+      dockerfile: ./Dockerfile
+    image: mssql
+  # mssql:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: mssql
     ports:
       - 1433:1433
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=saPassword1234
+      - SA_PASSWORD=saPassword1234
       - MSSQL_PID=Express
       - MSSQL_LCID=1041
       - MSSQL_COLLATION=Japanese_CI_AS
+      - DB_NAME=DEMO # 初回起動時のDB存在判定のために使用します。
     networks:
       shared-nw:
-    # volumes:
-    #   - './docker/db/data:/var/opt/mssql/data'
-    #   - './docker/db/log:/var/opt/mssql/log'
-    #   - './docker/db/secrets:/var/opt/mssql/secrets'
+    volumes:
+      # - './mssqlserver/initdb.d:/docker-entrypoint-initdb.d'
+      - './docker/mssqlserver/data:/var/opt/mssql/data'
+      - './docker/mssqlserver/log:/var/opt/mssql/log'
+      - './docker/mssqlserver/secrets:/var/opt/mssql/secrets'
   # nginx:
   #   build: ./nginx
   #   networks:
