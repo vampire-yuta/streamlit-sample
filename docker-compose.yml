@@ -22,6 +22,8 @@ services:
       - MSSQL_PID=Express
       - MSSQL_LCID=1041
       - MSSQL_COLLATION=Japanese_CI_AS
+    networks:
+      shared-nw:
     # volumes:
     #   - './docker/db/data:/var/opt/mssql/data'
     #   - './docker/db/log:/var/opt/mssql/log'

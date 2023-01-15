@@ -38,7 +38,6 @@ def main():
         st.form_submit_button("スタート！", on_click=change_page)
 
 
-
 # 問題１
 def page1():
     st.markdown(
